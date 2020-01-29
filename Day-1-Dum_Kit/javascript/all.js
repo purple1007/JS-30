@@ -10,11 +10,19 @@ function playSound(e) {
    keybox.classList.add('active');
 };
 
+function clickSound(e) {
+  if(e.target.className !== 'keybox' ) return;
+  console.log(e.target.dataset.key);
+  const datakey = e.target.dataset.key;
+  const audio = document.querySelector(`audio[data-key="${datakey}"]`);
+  audio.currentTime = 0;
+  audio.play();
+}
+
+
 function removeTransition(e){
-  // console.log(e);
-  if(e.propertyName !== 'color') return;
-  console.log(e.propertyName);
-  // console.log(this);
+  if(e.propertyName !== 'background-color') return;
+  // console.log(e.propertyName);
   this.classList.remove('active');
 };
 
@@ -22,3 +30,4 @@ const keyboxs = document.querySelectorAll('.keybox');
 keyboxs.forEach(keybox => keybox.addEventListener('transitionend',removeTransition));
 
 window.addEventListener('keydown',playSound);
+window.addEventListener('click',clickSound);
